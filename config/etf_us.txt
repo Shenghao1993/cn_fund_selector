@@ -1,0 +1,5 @@
+SPY
+IVV
+VTI
+VOO
+QQQ

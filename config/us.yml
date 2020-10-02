@@ -1,0 +1,22 @@
+univ: "config/etf_us.txt"
+
+output: "data/{yyyy}/{ticker}.csv"
+
+logging:
+  version: 1
+  root:
+    level: INFO
+    handlers: [console, logfile]
+  formatters:
+    simple:
+      format: "%(asctime)s %(levelname)s--: %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: simple
+    logfile:
+      class: logging.FileHandler
+      level: DEBUG
+      filename: log/yahoo_finance_%Y%m%d_%H%M%S.log
+      formatter: simple
+      mode: "w"
