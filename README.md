@@ -1,5 +1,5 @@
-# cn_fund_selector
+# Algorithmic Trading by Swang
 
-Compare historical performance of CN funds and give recommendation
+Generate trading signals with simple strategies such as MACD.
 
-streamlit run src/screener/app.py
+![Sample MACD chart for AAPL](img/aapl_2024.png)
