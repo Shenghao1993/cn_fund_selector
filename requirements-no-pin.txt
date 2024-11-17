@@ -1,7 +1,10 @@
+ipykernel
 numpy
 matplotlib
 yfinance
+# nbformat>4.2.0
 pandas
 pre-commit
-plotly
+# plotly
 pytest
+mplfinance
