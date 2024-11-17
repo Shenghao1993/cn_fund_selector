@@ -13,7 +13,7 @@ stock = yf.Ticker("AAPL")
 
 # get historical market data
 # df = stock.history(period="1y")
-df = stock.history(period="6mo")
+df = stock.history(period="2y")
 df.head()
 # %%
 #
@@ -42,6 +42,9 @@ k = df['Close'].ewm(span=12, adjust=False, min_periods=12).mean()
 # Get the 12-day EMA of the closing price
 d = df['Close'].ewm(span=26, adjust=False, min_periods=26).mean()
 
+# Calculate the 200-day EMA as the benchmark price
+b = df['Close'].ewm(span=200, adjust=False, min_periods=200).mean()
+
 # Subtract the 26-day EMA from the 12-Day EMA to get the MACD
 macd = k - d
 
@@ -55,6 +58,7 @@ macd_h = macd - macd_s
 df['MACD_12_26_9'] = df.index.map(macd)
 df['MACDh_12_26_9'] = df.index.map(macd_h)
 df['MACDs_12_26_9'] = df.index.map(macd_s)
+df['MA200'] = df.index.map(b)
 
 df.tail()
 # %%
@@ -92,6 +96,7 @@ def gen_macd_color(df: pd.DataFrame) -> List[str]:
 macd = df[['MACD_12_26_9']]
 histogram = df[['MACDh_12_26_9']]
 signal = df[['MACDs_12_26_9']]
+benchmark = df[['MA200']]
 macd_color = gen_macd_color(df)
 
 # %%
@@ -99,6 +104,7 @@ apds = [
     mpf.make_addplot(macd, color='#2962FF', panel=1),
     mpf.make_addplot(signal, color='#FF6D00', panel=1),
     mpf.make_addplot(histogram,type='bar',width=0.7,panel=1, color=macd_color,alpha=1,secondary_y=True),
+    mpf.make_addplot(benchmark, type='line', panel=0)
 ]
 
 mpf.plot(
